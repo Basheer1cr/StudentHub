@@ -1,0 +1,82 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>All Projects - StudentHub</title><link rel="stylesheet" href="style.css">
+<style>
+body{background:#eef2ff !important;position:relative;overflow-x:hidden}
+.bg-anim{position:fixed;inset:0;z-index:-1;overflow:hidden;background:linear-gradient(135deg,#fefce8 0%,#e0e7ff 25%,#ddd6fe 50%,#fce7f3 75%,#dbeafe 100%);background-size:300% 300%;animation:gradMove 12s ease infinite}
+@keyframes gradMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:float 8s ease-in-out infinite}
+.blob1{width:340px;height:340px;background:#facc15;top:-80px;left:-80px}
+.blob2{width:300px;height:300px;background:#818cf8;top:15%;right:-100px;animation-delay:2s}
+.blob3{width:280px;height:280px;background:#f472b6;bottom:-80px;left:35%;animation-delay:4s}
+@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-28px) scale(1.07)}}
+.float-icon{position:absolute;font-size:26px;opacity:.5;animation:floatY 5s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-16px) rotate(8deg)}}
+.hero2{max-width:1080px;margin:22px auto 0;padding:0 20px;text-align:center;position:relative;z-index:2}
+.hero2 .pill{display:inline-block;background:white;border:1px solid #e2e8f0;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;color:#ca8a04;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.hero2 h1{font-size:30px;margin:10px 0 4px}
+.hero2 p{color:#64748b;font-size:14px}
+.search-glass{max-width:1080px;margin:18px auto;display:flex;gap:10px;flex-wrap:wrap;padding:16px;background:rgba(255,255,255,.85);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.7);border-radius:16px;box-shadow:0 10px 30px rgba(202,138,4,.12);position:relative;z-index:2}
+.search-glass input,.search-glass select{flex:1;min-width:160px;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:11px;font-size:14px;outline:none;background:white;font-family:inherit}
+.search-glass input:focus,.search-glass select:focus{border-color:#ca8a04;box-shadow:0 0 0 4px rgba(202,138,4,.12)}
+.btn-search{background:linear-gradient(90deg,#0f172a,#4f46e5);color:white;border:none;padding:12px 22px;border-radius:11px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(15,23,42,.3)}
+.filter-pills{max-width:1080px;margin:0 auto 4px;padding:0 20px;display:flex;gap:8px;flex-wrap:wrap;position:relative;z-index:2}
+.pill-btn{padding:8px 16px;border-radius:20px;border:1px solid #e2e8f0;background:white;font-weight:600;font-size:13px;cursor:pointer;transition:.15s}
+.pill-btn.active{background:#0f172a;color:white;border-color:#0f172a}
+.pill-btn:hover{transform:translateY(-1px)}
+.grid{position:relative;z-index:2}
+.item{animation:cardIn .5s ease both;overflow:hidden}
+.item:nth-child(1){animation-delay:.05s}.item:nth-child(2){animation-delay:.1s}.item:nth-child(3){animation-delay:.15s}.item:nth-child(4){animation-delay:.2s}.item:nth-child(5){animation-delay:.25s}.item:nth-child(6){animation-delay:.3s}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.proj-cover{height:88px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:36px;margin:-6px -6px 12px;background:linear-gradient(135deg,#fef3c7,#e0e7ff);position:relative}
+.proj-cover .type-badge{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.9);padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.empty-state{grid-column:1/-1;text-align:center;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);padding:44px 20px;border-radius:20px;border:1px dashed #facc15;animation:cardIn .5s ease}
+.empty-state .big{font-size:56px;animation:floatY 3s ease-in-out infinite}
+body.dark{background:#0b1120 !important}
+body.dark .bg-anim{background:linear-gradient(135deg,#0f172a,#422006,#312e81,#831843) !important}
+body.dark .search-glass,body.dark .empty-state{background:rgba(17,28,50,.85) !important;border-color:#1e293b !important}
+body.dark .search-glass input,body.dark .search-glass select{background:#0b1120 !important;color:white !important;border-color:#334155 !important}
+body.dark .pill-btn{background:#1e293b !important;color:white !important;border-color:#334155 !important}
+body.dark .pill-btn.active{background:white !important;color:#0f172a !important}
+body.dark .hero2 .pill{background:#1e293b !important;border-color:#334155 !important}
+</style>
+</head><body>
+<div class="bg-anim"><div class="blob blob1"></div><div class="blob blob2"></div><div class="blob blob3"></div></div>
+<div class="float-icon" style="top:110px;left:5%">📂</div><div class="float-icon" style="top:160px;right:6%;animation-delay:1s">💻</div><div class="float-icon" style="top:400px;left:3%;animation-delay:2s">🚀</div>
+
+<div class="nav"><div class="logo"><span>S</span> StudentHub</div><button class="back-btn" onclick="history.back()">← Back</button><a href="/">Home</a><a href="/add-student">Add Student</a><a href="/students-page">All Students</a><a href="/add-project">Upload Project</a><a class="active" href="/projects-page">All Projects</a><a href="/analytics">Analytics</a><a href="/profile">My Profile</a><button class="dark-btn" onclick="toggleDark()" id="darkBtn">🌙 Dark</button><span id="userInfo" style="margin-left:auto"></span><a href="/signup" id="signupBtn">Sign up</a><a href="/login" id="loginBtn">Log in</a><button id="logoutBtn" onclick="logout()" style="display:none">Log out</button></div>
+
+<div class="hero2"><span class="pill">● Project Showcase</span><h1>📂 All Projects</h1><p id="countText">Loading projects...</p></div>
+
+<div style="max-width:1080px;margin:0 auto;padding:0 20px"><div class="search-glass"><input id="q" placeholder="🔍 Search project / student / title" oninput="doSearch()"><select id="typeFilter" onchange="setPill(this.value);doSearch()"><option value="">All Types</option><option>Web</option><option>Mobile</option><option>AI / ML</option><option>Java</option><option>Other</option></select><button onclick="doSearch()" class="btn-search">Search</button><a href="/add-project" style="background:#ca8a04;color:white;padding:12px 18px;border-radius:11px;font-weight:700">+ Upload Project</a></div></div>
+
+<div class="filter-pills"><button class="pill-btn active" data-type="" onclick="filterPill('',this)">✦ All</button><button class="pill-btn" data-type="Web" onclick="filterPill('Web',this)">🌐 Web</button><button class="pill-btn" data-type="Mobile" onclick="filterPill('Mobile',this)">📱 Mobile</button><button class="pill-btn" data-type="AI / ML" onclick="filterPill('AI / ML',this)">🤖 AI / ML</button><button class="pill-btn" data-type="Java" onclick="filterPill('Java',this)">☕ Java</button><button class="pill-btn" data-type="Other" onclick="filterPill('Other',this)">💡 Other</button></div>
+
+<div class="grid" id="list" style="margin-top:16px"></div>
+
+<script>
+if(localStorage.getItem('dark')==='1') document.body.classList.add('dark');
+function toggleDark(){ document.body.classList.toggle('dark'); let isDark=document.body.classList.contains('dark'); localStorage.setItem('dark', isDark?'1':'0'); document.getElementById('darkBtn').innerText=isDark?'☀️ Light':'🌙 Dark'; }
+setTimeout(()=>{ let b=document.getElementById('darkBtn'); if(b) b.innerText=document.body.classList.contains('dark')?'☀️ Light':'🌙 Dark'; },100);
+let role=localStorage.getItem('role'); let uname=localStorage.getItem('username');
+if(role){ document.getElementById('userInfo').innerText='👤 '+role+' • '+uname; document.getElementById('loginBtn').style.display='none'; document.getElementById('signupBtn').style.display='none'; document.getElementById('logoutBtn').style.display='inline-block'; }
+function logout(){ localStorage.clear(); location.reload(); }
+function showToast(msg, type){ let old=document.querySelector('.toast'); if(old) old.remove(); let t=document.createElement('div'); t.className='toast '+type; t.innerText=msg; document.body.appendChild(t); setTimeout(()=>{ t.classList.add('hide'); setTimeout(()=>t.remove(), 300); }, 3000); }
+function typeIcon(t){ if(t==='Web') return '🌐'; if(t==='Mobile') return '📱'; if(t==='AI / ML') return '🤖'; if(t==='Java') return '☕'; return '💡'; }
+function typeColor(t){ if(t==='Web') return 'linear-gradient(135deg,#dbeafe,#e0e7ff)'; if(t==='Mobile') return 'linear-gradient(135deg,#dcfce7,#dbeafe)'; if(t==='AI / ML') return 'linear-gradient(135deg,#f3e8ff,#fce7f3)'; if(t==='Java') return 'linear-gradient(135deg,#ffedd5,#fef3c7)'; return 'linear-gradient(135deg,#fef9c3,#fde68a)'; }
+function filterPill(type, btn){ document.querySelectorAll('.pill-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); document.getElementById('typeFilter').value=type; doSearch(); }
+function setPill(val){ document.querySelectorAll('.pill-btn').forEach(b=>b.classList.toggle('active', b.dataset.type===val)); }
+function render(list){
+  document.getElementById('countText').innerText=list.length+' projects found • Explore, download & get inspired';
+  document.getElementById('list').innerHTML=list.map(p=>`
+    <div class="item">
+      <div class="proj-cover" style="background:${typeColor(p.type)}"><span style="font-size:38px">${typeIcon(p.type)}</span><span class="type-badge">${typeIcon(p.type)} ${p.type||'Other'}</span></div>
+      <h3 style="font-size:16px;line-height:1.3">${p.title}</h3>
+      <p style="font-size:13px;color:#64748b">👤 Student ID: <b style="color:#0f172a">${p.studentId}</b> ${p.studentName?'• '+p.studentName:''}</p>
+      <p style="font-size:13.5px;color:#475569;line-height:1.5;min-height:40px">${p.description? (p.description.length>110? p.description.substring(0,110)+'...':p.description) : 'No description added.'}</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">${p.files?`<a class="dl" href="/download?file=${encodeURIComponent(p.files)}">⬇ Download Files</a>`:''}<a class="dl" href="/profile?id=${p.studentId}">👤 Owner Profile</a></div>
+      ${role==='ADMIN'?`<button class="del" onclick="delProject('${p.id}')">🗑 Delete</button>`:''}
+    </div>`).join('') || `<div class="empty-state"><div class="big">📂</div><h2 style="margin:12px 0 6px">No Projects Yet</h2><p style="color:#64748b;font-size:14px;max-width:440px;margin:0 auto">No one has uploaded a project yet. Be the first to showcase your work — it will appear here like a beautiful portfolio gallery.</p><div style="margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a href="/add-project" style="background:#0f172a;color:white;padding:12px 22px;border-radius:11px;font-weight:700;font-size:14px">+ Upload First Project →</a><a href="/add-student" style="background:white;color:#0f172a;border:1px solid #e2e8f0;padding:12px 22px;border-radius:11px;font-weight:700;font-size:14px">Add Student</a></div><p style="font-size:12.5px;color:#94a3b8;margin-top:14px">Tip: Web • Mobile • AI/ML • Java — Filter by type above</p></div>`;
+}
+async function doSearch(){ let q=document.getElementById('q').value; let t=document.getElementById('typeFilter').value; let d=await (await fetch(`/api/projects?q=${encodeURIComponent(q)}&type=${encodeURIComponent(t)}`)).json(); render(d); }
+async function delProject(id){ if(!confirm('Delete this project?')) return; await fetch('/delete-project?id='+id); showToast('🗑 Project Deleted','error'); doSearch(); }
+doSearch();
+</script></body></html>

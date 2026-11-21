@@ -1,0 +1,93 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>My Profile - StudentHub</title><link rel="stylesheet" href="style.css">
+<style>
+body{background:#eef2ff !important;position:relative;overflow-x:hidden}
+.bg-anim{position:fixed;inset:0;z-index:-1;overflow:hidden;background:linear-gradient(135deg,#e0f2fe 0%,#e0e7ff 25%,#ddd6fe 50%,#fce7f3 75%,#dcfce7 100%);background-size:300% 300%;animation:gradMove 12s ease infinite}
+@keyframes gradMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:float 8s ease-in-out infinite}
+.blob1{width:340px;height:340px;background:#38bdf8;top:-80px;left:-80px}
+.blob2{width:300px;height:300px;background:#c084fc;top:15%;right:-100px;animation-delay:2s}
+.blob3{width:280px;height:280px;background:#34d399;bottom:-80px;left:35%;animation-delay:4s}
+@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-28px) scale(1.07)}}
+.float-icon{position:absolute;font-size:26px;opacity:.5;animation:floatY 5s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-16px) rotate(8deg)}}
+.wrap{max-width:880px;margin:24px auto;padding:0 20px;position:relative;z-index:2}
+.glass{background:rgba(255,255,255,.88);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:28px;box-shadow:0 15px 40px rgba(56,189,248,.12);animation:slideUp .5s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.profile-head{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.avatar-big{width:76px;height:76px;border-radius:20px;background:linear-gradient(135deg,#0ea5e9,#4f46e5,#ec4899);color:white;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;box-shadow:0 10px 25px rgba(14,165,233,.35);flex-shrink:0}
+.score-ring{width:92px;height:92px;border-radius:50%;background:conic-gradient(#16a34a 0deg, #e2e8f0 0deg);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative}
+.score-ring::before{content:'';position:absolute;inset:9px;background:white;border-radius:50%}
+.score-ring b{position:relative;z-index:1;font-size:20px}
+.score-ring span{position:relative;z-index:1;font-size:10px;color:#64748b;display:block;text-align:center}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+@media(max-width:560px){.info-grid{grid-template-columns:1fr}}
+.info-item{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px}
+.info-item label{font-size:11px;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.info-item b{font-size:14px;display:block;margin-top:2px}
+.empty-big{font-size:58px;animation:floatY 3s ease-in-out infinite}
+.demo-box{margin-top:18px;background:#fffbeb;border:1px dashed #f59e0b;border-radius:12px;padding:14px;text-align:center;font-size:13px;line-height:1.7}
+body.dark{background:#0b1120 !important}
+body.dark .bg-anim{background:linear-gradient(135deg,#0f172a,#0c4a6e,#312e81,#831843) !important}
+body.dark .glass{background:rgba(17,28,50,.85) !important;border-color:#1e293b !important}
+body.dark .info-item{background:#0b1120 !important;border-color:#334155 !important}
+body.dark .score-ring::before{background:#111c32 !important}
+body.dark .demo-box{background:#1e293b !important;border-color:#334155 !important}
+</style>
+</head><body>
+<div class="bg-anim"><div class="blob blob1"></div><div class="blob blob2"></div><div class="blob blob3"></div></div>
+<div class="float-icon" style="top:110px;left:5%">👤</div><div class="float-icon" style="top:160px;right:6%;animation-delay:1s">⭐</div><div class="float-icon" style="top:400px;left:3%;animation-delay:2s">🎓</div>
+
+<div class="nav"><div class="logo"><span>S</span> StudentHub</div><button class="back-btn" onclick="history.back()">← Back</button><a href="/">Home</a><a href="/add-student">Add Student</a><a href="/students-page">All Students</a><a href="/add-project">Upload Project</a><a href="/projects-page">All Projects</a><a href="/analytics">Analytics</a><a class="active" href="/profile">My Profile</a><button class="dark-btn" onclick="toggleDark()" id="darkBtn">🌙 Dark</button><span id="userInfo" style="margin-left:auto"></span><a href="/signup" id="signupBtn">Sign up</a><a href="/login" id="loginBtn">Log in</a><button id="logoutBtn" onclick="logout()" style="display:none">Log out</button></div>
+
+<div class="wrap" id="wrap"></div>
+
+<script>
+if(localStorage.getItem('dark')==='1') document.body.classList.add('dark');
+function toggleDark(){ document.body.classList.toggle('dark'); let isDark=document.body.classList.contains('dark'); localStorage.setItem('dark', isDark?'1':'0'); document.getElementById('darkBtn').innerText=isDark?'☀️ Light':'🌙 Dark'; }
+setTimeout(()=>{ let b=document.getElementById('darkBtn'); if(b) b.innerText=document.body.classList.contains('dark')?'☀️ Light':'🌙 Dark'; },100);
+let role=localStorage.getItem('role'); let uname=localStorage.getItem('username'); let sid=localStorage.getItem('studentId');
+let urlParams=new URLSearchParams(location.search); let viewId=urlParams.get('id');
+if(role){ document.getElementById('userInfo').innerText='👤 '+role+' • '+uname; document.getElementById('loginBtn').style.display='none'; document.getElementById('signupBtn').style.display='none'; document.getElementById('logoutBtn').style.display='inline-block'; }
+function logout(){ localStorage.clear(); location.reload(); }
+function showToast(m,t){ let o=document.querySelector('.toast'); if(o) o.remove(); let d=document.createElement('div'); d.className='toast '+t; d.innerText=m; document.body.appendChild(d); setTimeout(()=>{ d.classList.add('hide'); setTimeout(()=>d.remove(),300); },3000); }
+
+async function load(){
+  let wrap=document.getElementById('wrap');
+  // NOT LOGGED IN - Premium Empty State
+  if(!role && !viewId){
+    wrap.innerHTML=`<div class="glass" style="text-align:center;padding:38px 24px">
+      <div class="empty-big">👤</div>
+      <span style="display:inline-block;background:#e0f2fe;color:#0369a1;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;margin-top:10px">● YOUR SPACE IS READY</span>
+      <h1 style="font-size:26px;margin:12px 0 6px">Your Profile Is Waiting!</h1>
+      <p style="color:#64748b;font-size:14px;max-width:440px;margin:0 auto;line-height:1.6">Signup with your real data to see <b style="color:#0f172a">your own Profile, Score, Resume & Projects</b> — like LinkedIn, but for students.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:520px;margin:20px auto">
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px"><div style="font-size:22px">⭐</div><b style="font-size:13px">Live Score</b><p style="font-size:12px;color:#64748b;margin:2px 0 0">Marks + Resume + Project</p></div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px"><div style="font-size:22px">📄</div><b style="font-size:13px">Resume</b><p style="font-size:12px;color:#64748b;margin:2px 0 0">Download anytime</p></div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px"><div style="font-size:22px">📦</div><b style="font-size:13px">Projects</b><p style="font-size:12px;color:#64748b;margin:2px 0 0">Your portfolio</p></div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a href="/signup" style="background:#0ea5e9;color:white;padding:13px 24px;border-radius:11px;font-weight:700;font-size:14px;box-shadow:0 8px 20px rgba(14,165,233,.35)">✦ Create Free Account →</a><a href="/login" style="background:#0f172a;color:white;padding:13px 24px;border-radius:11px;font-weight:700;font-size:14px">🔐 Log In</a></div>
+      <div class="demo-box">✨ <b>New:</b> Signup with <b>YOUR Name, Email, Phone</b> — No fake data<br>👑 Admin: <b>admin / admin123</b> &nbsp;•&nbsp; 🧪 Old Demo: <b>101 / 101</b> &nbsp;•&nbsp; Takes only 30 seconds</div>
+    </div>`;
+    return;
+  }
+  // LOGGED IN / VIEWING
+  let idToLoad = viewId || sid || uname;
+  if(role==='ADMIN' && !viewId){
+    wrap.innerHTML=`<div class="glass"><div class="profile-head"><div class="avatar-big">👑</div><div><h1 style="font-size:24px;margin:0">Welcome, Admin 👑</h1><p style="color:#64748b;font-size:14px;margin:4px 0 0">You have full control — Manage all students, projects & analytics.</p><span class="badge pub" style="margin-top:8px">● ADMIN ACCESS</span></div></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px"><a href="/students-page" style="background:#eef2ff;border-radius:12px;padding:16px;text-align:center"><div style="font-size:24px">👥</div><b style="font-size:13px">All Students</b></a><a href="/projects-page" style="background:#fef9c3;border-radius:12px;padding:16px;text-align:center"><div style="font-size:24px">📂</div><b style="font-size:13px">All Projects</b></a><a href="/analytics" style="background:#f3e8ff;border-radius:12px;padding:16px;text-align:center"><div style="font-size:24px">📊</div><b style="font-size:13px">Analytics</b></a></div></div>`;
+    return;
+  }
+  try{
+    let s=await (await fetch('/api/student?id='+encodeURIComponent(idToLoad))).json();
+    if(!s || !s.name){ wrap.innerHTML=`<div class="glass" style="text-align:center"><div style="font-size:48px">😕</div><h2 style="margin:10px 0">Profile Not Found</h2><p style="color:#64748b">No student found for ID ${idToLoad}</p><a href="/signup" style="background:#0ea5e9;color:white;padding:12px 22px;border-radius:11px;font-weight:700;display:inline-block;margin-top:12px">Create Account →</a></div>`; return; }
+    let sc=await (await fetch('/api/score?id='+s.id)).json().catch(()=>({score:0,grade:'-'}));
+    let pct=Math.min(100, Math.max(0, sc.score||0)); let deg=pct*3.6;
+    let projects=await (await fetch('/api/projects?q='+encodeURIComponent(s.id))).json().catch(()=>[]);
+    wrap.innerHTML=`<div class="glass"><div class="profile-head"><div class="avatar-big">${s.name.charAt(0).toUpperCase()}</div><div style="flex:1"><h1 style="font-size:24px;margin:0">${s.name}</h1><p style="color:#64748b;font-size:13.5px;margin:4px 0 0">🎓 ${s.course} • ID: ${s.id} • <span class="badge ${s.visibility==='private'?'pri':'pub'}">${s.visibility==='private'?'🔒 PRIVATE':'🌍 PUBLIC'}</span></p><p style="font-size:13px;color:#64748b;margin:4px 0 0">📧 ${s.email} • 📞 ${s.phone}</p></div><div class="score-ring" style="background:conic-gradient(#16a34a ${deg}deg, #e2e8f0 ${deg}deg)"><div style="text-align:center;position:relative;z-index:1"><b>${sc.score||0}</b><span>/ 100 SCORE</span></div></div></div>
+    <div style="margin-top:16px;background:linear-gradient(90deg,#0ea5e9,#4f46e5);border-radius:12px;padding:14px 16px;color:white;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px"><div><b style="font-size:14px">Grade: ${sc.grade||'-'} • ${pct>=80?'Excellent! Keep it up 🚀':pct>=60?'Good — Add a project to boost +30':'Add Resume + Project to boost score'}</b><p style="font-size:12.5px;opacity:.85;margin:2px 0 0">Score = Marks + Resume + Project</p></div><a href="/add-project" style="background:white;color:#0f172a;padding:8px 16px;border-radius:9px;font-weight:700;font-size:13px">+ Add Project</a></div>
+    <div class="info-grid"><div class="info-item"><label>Marks</label><b>📚 ${s.marks} / 100</b></div><div class="info-item"><label>Course</label><b>🎓 ${s.course}</b></div><div class="info-item"><label>Resume</label><b>${s.resume?`<a href="/download?file=${encodeURIComponent(s.resume)}" style="color:#0ea5e9">📄 Download Resume →</a>`:'❌ Not uploaded'}</b></div><div class="info-item"><label>Projects</label><b>📦 ${projects.length} project(s)</b></div></div>
+    ${projects.length?`<h3 style="text-align:left;margin:20px 0 10px">📦 My Projects</h3><div style="display:grid;gap:10px">${projects.map(p=>`<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px"><b>${p.title}</b> <span style="font-size:12px;background:#eef2ff;color:#4338ca;padding:3px 8px;border-radius:20px;font-weight:700">${p.type||''}</span><p style="font-size:13px;color:#64748b;margin:6px 0">${p.description||''}</p>${p.files?`<a class="dl" href="/download?file=${encodeURIComponent(p.files)}">⬇ Download</a>`:''}</div>`).join('')}</div>`:`<div style="text-align:center;background:#fffbeb;border:1px dashed #f59e0b;border-radius:12px;padding:18px;margin-top:18px"><b>No projects yet</b><p style="font-size:13px;color:#64748b;margin:4px 0 10px">Upload your first project to boost score +30</p><a href="/add-project" style="background:#0f172a;color:white;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px;display:inline-block">+ Upload Project →</a></div>`}
+    <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap"><a href="/students-page" style="background:#eef2ff;color:#4338ca;padding:10px 16px;border-radius:10px;font-weight:700;font-size:13px">← All Students</a><a href="/analytics" style="background:#f3e8ff;color:#7c3aed;padding:10px 16px;border-radius:10px;font-weight:700;font-size:13px">📊 Analytics</a></div></div>`;
+  }catch(e){ wrap.innerHTML=`<div class="glass" style="text-align:center">Could not load profile. <a href="/login" style="color:#0ea5e9;font-weight:700">Login again →</a></div>`; }
+}
+load();
+</script></body></html>

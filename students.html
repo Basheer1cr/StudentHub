@@ -1,0 +1,81 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>All Students - StudentHub</title><link rel="stylesheet" href="style.css">
+<style>
+/* ===== ANIMATED BACKGROUND ===== */
+body{background:#eef2ff !important;position:relative;overflow-x:hidden}
+.bg-anim{position:fixed;inset:0;z-index:-1;overflow:hidden;background:linear-gradient(135deg,#eef2ff 0%,#e0e7ff 25%,#ddd6fe 50%,#fce7f3 75%,#dbeafe 100%);background-size:300% 300%;animation:gradMove 12s ease infinite}
+@keyframes gradMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:float 8s ease-in-out infinite}
+.blob1{width:340px;height:340px;background:#818cf8;top:-80px;left:-80px}
+.blob2{width:300px;height:300px;background:#f472b6;top:15%;right:-100px;animation-delay:2s}
+.blob3{width:280px;height:280px;background:#34d399;bottom:-80px;left:35%;animation-delay:4s}
+@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-28px) scale(1.07)}}
+.float-icon{position:absolute;font-size:26px;opacity:.5;animation:floatY 5s ease-in-out infinite;z-index:0}
+@keyframes floatY{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-16px) rotate(8deg)}}
+
+/* ===== HERO ===== */
+.hero2{max-width:1080px;margin:22px auto 0;padding:0 20px;text-align:center;position:relative;z-index:2}
+.hero2 .pill{display:inline-block;background:white;border:1px solid #e2e8f0;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;color:#4f46e5;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.hero2 h1{font-size:30px;margin:10px 0 4px}
+.hero2 p{color:#64748b;font-size:14px}
+/* ===== SEARCH GLASS ===== */
+.search-glass{max-width:1080px;margin:18px auto;display:flex;gap:10px;flex-wrap:wrap;padding:16px;background:rgba(255,255,255,.82);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.7);border-radius:16px;box-shadow:0 10px 30px rgba(79,70,229,.12);position:relative;z-index:2}
+.search-glass input,.search-glass select{flex:1;min-width:160px;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:11px;font-size:14px;outline:none;background:white;font-family:inherit}
+.search-glass input:focus,.search-glass select:focus{border-color:#4f46e5;box-shadow:0 0 0 4px rgba(79,70,229,.12)}
+.btn-search{background:linear-gradient(90deg,#4f46e5,#7c3aed);color:white;border:none;padding:12px 22px;border-radius:11px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(79,70,229,.3)}
+.btn-csv{background:#16a34a;color:white;padding:12px 18px;border-radius:11px;font-weight:700;display:flex;align-items:center}
+.grid{position:relative;z-index:2}
+.item{animation:cardIn .5s ease both}
+.item:nth-child(1){animation-delay:.05s}.item:nth-child(2){animation-delay:.1s}.item:nth-child(3){animation-delay:.15s}.item:nth-child(4){animation-delay:.2s}.item:nth-child(5){animation-delay:.25s}.item:nth-child(6){animation-delay:.3s}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.avatar-mini{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#4f46e5,#ec4899);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;margin-bottom:10px}
+.marks-pill{display:inline-block;background:#fef3c7;color:#92400e;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700}
+.empty-state{grid-column:1/-1;text-align:center;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);padding:40px 20px;border-radius:20px;border:1px dashed #c7d2fe;animation:cardIn .5s ease}
+.empty-state .big{font-size:52px;animation:floatY 3s ease-in-out infinite}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);z-index:100;align-items:center;justify-content:center}
+.modal.open{display:flex}
+.modal-box{background:white;width:90%;max-width:500px;padding:26px;border-radius:18px;max-height:90vh;overflow:auto;animation:cardIn .3s ease}
+body.dark{background:#0b1120 !important}
+body.dark .bg-anim{background:linear-gradient(135deg,#0f172a,#312e81,#4c1d95,#831843) !important}
+body.dark .search-glass,body.dark .empty-state{background:rgba(17,28,50,.85) !important;border-color:#1e293b !important}
+body.dark .search-glass input,body.dark .search-glass select,body.dark .modal-box{background:#0b1120 !important;color:white !important;border-color:#334155 !important}
+body.dark .hero2 .pill{background:#1e293b !important;border-color:#334155 !important}
+</style>
+</head><body>
+<div class="bg-anim"><div class="blob blob1"></div><div class="blob blob2"></div><div class="blob blob3"></div></div>
+<div class="float-icon" style="top:110px;left:5%">👥</div><div class="float-icon" style="top:160px;right:6%;animation-delay:1s">🎓</div><div class="float-icon" style="top:400px;left:3%;animation-delay:2s">⭐</div>
+
+<div class="nav"><div class="logo"><span>S</span> StudentHub</div><button class="back-btn" onclick="history.back()">← Back</button><a href="/">Home</a><a href="/add-student">Add Student</a><a class="active" href="/students-page">All Students</a><a href="/add-project">Upload Project</a><a href="/projects-page">All Projects</a><a href="/analytics">Analytics</a><a href="/profile">My Profile</a><button class="dark-btn" onclick="toggleDark()" id="darkBtn">🌙 Dark</button><span id="userInfo" style="margin-left:auto"></span><a href="/signup" id="signupBtn">Sign up</a><a href="/login" id="loginBtn">Log in</a><button id="logoutBtn" onclick="logout()" style="display:none">Log out</button></div>
+
+<div class="hero2"><span class="pill">● Live Directory</span><h1>👥 All Students</h1><p id="countText">Loading students...</p></div>
+
+<div style="max-width:1080px;margin:0 auto;padding:0 20px"><div class="search-glass"><input id="q" placeholder="🔍 Search by Name / ID / Email" oninput="doSearch()"><select id="courseFilter" onchange="doSearch()"><option value="">All Courses</option><option>B.Tech</option><option>MBA</option><option>BCA</option><option>MCA</option><option>B.Sc</option><option>M.Sc</option></select><select id="sortFilter" onchange="doSearch()"><option value="">Sort: Default</option><option value="marks_desc">Marks High → Low</option><option value="marks_asc">Marks Low → High</option><option value="name_asc">Name A → Z</option></select><button onclick="doSearch()" class="btn-search">Search</button><a href="/export-csv" class="btn-csv">⬇ Export CSV</a></div></div>
+
+<div class="grid" id="list" style="margin-top:16px"></div>
+
+<div class="modal" id="editModal"><div class="modal-box"><h2>Edit Student</h2><form action="/update-student" method="post" enctype="multipart/form-data"><input type="hidden" name="id" id="edit-id"><input type="hidden" name="oldResume" id="edit-oldResume"><label>Name</label><input name="name" id="edit-name" required><label>Email</label><input name="email" id="edit-email" required><label>Phone</label><input name="phone" id="edit-phone" required><label>Course</label><select name="course" id="edit-course"><option>B.Tech</option><option>MBA</option><option>BCA</option><option>MCA</option><option>B.Sc</option><option>M.Sc</option></select><label>Marks</label><input name="marks" id="edit-marks" required><label>Visibility</label><select name="visibility" id="edit-vis"><option value="public">🌍 PUBLIC</option><option value="private">🔒 PRIVATE</option></select><label>New Resume (Optional)</label><input type="file" name="resume" accept=".pdf,.doc,.docx"><button class="btn btn-blue" type="submit">💾 Save Changes</button><button type="button" class="btn btn-dark" onclick="closeModal()">Cancel</button></form></div></div>
+
+<script>
+if(localStorage.getItem('dark')==='1') document.body.classList.add('dark');
+function toggleDark(){ document.body.classList.toggle('dark'); let isDark=document.body.classList.contains('dark'); localStorage.setItem('dark', isDark?'1':'0'); document.getElementById('darkBtn').innerText=isDark?'☀️ Light':'🌙 Dark'; }
+setTimeout(()=>{ let b=document.getElementById('darkBtn'); if(b) b.innerText=document.body.classList.contains('dark')?'☀️ Light':'🌙 Dark'; },100);
+let role=localStorage.getItem('role'); let uname=localStorage.getItem('username'); let sid=localStorage.getItem('studentId');
+if(role){ document.getElementById('userInfo').innerText='👤 '+role+' • '+uname; document.getElementById('loginBtn').style.display='none'; document.getElementById('signupBtn').style.display='none'; document.getElementById('logoutBtn').style.display='inline-block'; }
+function logout(){ localStorage.clear(); location.reload(); }
+function showToast(msg, type){ let old=document.querySelector('.toast'); if(old) old.remove(); let t=document.createElement('div'); t.className='toast '+type; t.innerText=msg; document.body.appendChild(t); setTimeout(()=>{ t.classList.add('hide'); setTimeout(()=>t.remove(), 300); }, 3000); }
+function canSee(s){ if(s.visibility==='public') return true; if(role==='ADMIN') return true; if(role==='STUDENT' && sid===s.id) return true; return false; }
+function canEdit(){ return role==='ADMIN' || role==='STUDENT'; }
+function render(list){
+  document.getElementById('countText').innerText=list.length+' students found • Search, filter & score instantly';
+  document.getElementById('list').innerHTML=list.map(s=>{
+    if(!canSee(s)) return `<div class="item locked"><div style="font-size:36px">🔒</div><h3>Private Student</h3><p>ID: ${s.id} • ${s.course}</p><p>Login as Admin or Owner to view</p></div>`;
+    let initial=s.name.charAt(0).toUpperCase();
+    return `<div class="item"><div style="display:flex;justify-content:space-between;align-items:start"><div class="avatar-mini">${initial}</div><span class="badge ${s.visibility==='private'?'pri':'pub'}">${s.visibility==='private'?'🔒 PRIVATE':'🌍 PUBLIC'}</span></div><h3>${s.name} <span style="font-size:12px;color:#94a3b8;font-weight:600">#${s.id}</span></h3><p>📧 ${s.email}</p><p>📞 ${s.phone}</p><p>🎓 ${s.course} • <span class="marks-pill">📚 ${s.marks} Marks</span></p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button onclick="checkScore('${s.id}')" style="background:#fef3c7;border:none;padding:7px 12px;border-radius:9px;cursor:pointer;font-weight:700;font-size:13px">⭐ Check Score</button><span id="score-${s.id}" style="font-weight:700;font-size:13px;align-self:center"></span></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">${s.resume?`<a class="dl" href="/download?file=${encodeURIComponent(s.resume)}">📄 Resume</a>`:''} <a class="dl" href="/profile?id=${s.id}">👤 Profile</a></div>${canEdit()?`<button onclick="openEdit('${s.id}','${s.name.replace(/'/g,"")}','${s.email}','${s.phone}','${s.course}','${s.marks}','${s.visibility}','${s.resume}')" style="background:#eef2ff;color:#4338ca;border:none;padding:7px 12px;border-radius:9px;cursor:pointer;font-weight:700;margin-top:10px;font-size:13px">✏️ Edit</button>`:''} ${role==='ADMIN'?`<button class="del" onclick="delStudent('${s.id}')">🗑 Delete</button>`:''}</div>`;
+  }).join('') || `<div class="empty-state"><div class="big">🎓</div><h2 style="margin:12px 0 6px">No Students Yet</h2><p style="color:#64748b;font-size:14px;max-width:420px;margin:0 auto">Your directory is empty. Be the first to add a student and see beautiful cards, scores & analytics here.</p><div style="margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a href="/add-student" style="background:#4f46e5;color:white;padding:12px 22px;border-radius:11px;font-weight:700;font-size:14px">+ Add First Student →</a><a href="/signup" style="background:white;color:#0f172a;border:1px solid #e2e8f0;padding:12px 22px;border-radius:11px;font-weight:700;font-size:14px">Sign Up Free</a></div></div>`;
+}
+async function doSearch(){ let q=document.getElementById('q').value; let c=document.getElementById('courseFilter').value; let s=document.getElementById('sortFilter').value; let d=await (await fetch(`/api/search?q=${encodeURIComponent(q)}&course=${encodeURIComponent(c)}&sort=${encodeURIComponent(s)}`)).json(); render(d); }
+async function checkScore(id){ let d=await (await fetch('/api/score?id='+id)).json(); document.getElementById('score-'+id).innerText='Score: '+d.score+' ('+d.grade+')'; showToast('⭐ Score: '+d.score+' - '+d.grade, 'info'); }
+async function delStudent(id){ if(!confirm('Delete student '+id+'?')) return; await fetch('/delete-student?id='+id); showToast('🗑 Student Deleted', 'error'); doSearch(); }
+function openEdit(id,name,email,phone,course,marks,vis,resume){ document.getElementById('edit-id').value=id; document.getElementById('edit-name').value=name; document.getElementById('edit-email').value=email; document.getElementById('edit-phone').value=phone; document.getElementById('edit-course').value=course; document.getElementById('edit-marks').value=marks; document.getElementById('edit-vis').value=vis; document.getElementById('edit-oldResume').value=resume; document.getElementById('editModal').classList.add('open'); }
+function closeModal(){ document.getElementById('editModal').classList.remove('open'); }
+doSearch();
+</script></body></html>

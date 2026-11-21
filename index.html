@@ -1,0 +1,56 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Home - StudentHub</title><link rel="stylesheet" href="style.css">
+<style>
+body{background:#eef2ff !important}
+.bg-anim{position:fixed;inset:0;z-index:-1;overflow:hidden;background:linear-gradient(135deg,#eef2ff,#e0e7ff,#ddd6fe,#fce7f3);background-size:300% 300%;animation:gradMove 12s ease infinite}
+@keyframes gradMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:float 8s ease-in-out infinite}
+.blob1{width:340px;height:340px;background:#818cf8;top:-80px;left:-80px}.blob2{width:300px;height:300px;background:#f472b6;top:15%;right:-100px;animation-delay:2s}.blob3{width:280px;height:280px;background:#34d399;bottom:-80px;left:35%;animation-delay:4s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-28px)}}
+.hero{position:relative;z-index:2}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;max-width:1080px;margin:16px auto;padding:0 20px;position:relative;z-index:2}
+.kpi{background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.7);border-radius:14px;padding:16px;display:flex;gap:12px;align-items:center;box-shadow:0 8px 20px rgba(79,70,229,.08)}
+.kpi .ic{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.kpi b{font-size:20px;display:block}.kpi span{font-size:11.5px;color:#64748b;font-weight:600;text-transform:uppercase}
+.action-grid{max-width:1080px;margin:16px auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;padding:0 20px;position:relative;z-index:2}
+.action-card{background:white;border:1px solid #e2e8f0;border-radius:14px;padding:18px;text-align:center;transition:.2s;display:block}
+.action-card:hover{transform:translateY(-3px);box-shadow:0 12px 25px rgba(0,0,0,.08)}
+.action-card .ic{font-size:28px}.action-card b{font-size:14px;display:block;margin-top:8px}.action-card p{font-size:12.5px;color:#64748b;margin:4px 0 0}
+body.dark{background:#0b1120 !important}body.dark .kpi,body.dark .action-card{background:rgba(17,28,50,.85) !important;border-color:#1e293b !important}
+</style></head><body>
+<div class="bg-anim"><div class="blob blob1"></div><div class="blob blob2"></div><div class="blob blob3"></div></div>
+<div class="nav"><div class="logo"><span>S</span> StudentHub</div><a class="active" href="/home">Home</a><a href="/add-student">Add Student</a><a href="/students-page">All Students</a><a href="/add-project">Upload Project</a><a href="/projects-page">All Projects</a><a href="/analytics">Analytics</a><a href="/profile">My Profile</a><button class="dark-btn" onclick="toggleDark()" id="darkBtn">🌙 Dark</button><span id="userInfo" style="margin-left:auto"></span><a href="/signup" id="signupBtn">Sign up</a><a href="/login" id="loginBtn">Log in</a><button id="logoutBtn" onclick="logout()" style="display:none">Log out</button></div>
+
+<div class="hero" style="text-align:center;padding:28px 20px 6px"><span class="pill">● Home Dashboard</span><h1 style="font-size:30px;margin:10px 0 6px" id="welcomeTitle">Welcome to StudentHub 👋</h1><p style="color:#64748b;font-size:14px" id="welcomeSub">Search, add and manage students — all in one place.</p>
+<div style="max-width:600px;margin:16px auto;display:flex;gap:8px"><input id="search" placeholder="🔍 Search student by name / ID / course" oninput="goSearch()" style="flex:1;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:11px;outline:none;font-size:14px"><button onclick="goSearch()" style="background:#4f46e5;color:white;border:none;padding:12px 20px;border-radius:11px;font-weight:700;cursor:pointer">Search</button></div>
+</div>
+
+<div class="kpi-row">
+<div class="kpi"><div class="ic" style="background:#eef2ff">👥</div><div><b id="kTotal">-</b><span>Total Students</span></div></div>
+<div class="kpi"><div class="ic" style="background:#dcfce7">📦</div><div><b id="kProj">-</b><span>Total Projects</span></div></div>
+<div class="kpi"><div class="ic" style="background:#fef9c3">🏆</div><div><b id="kTop">-</b><span>Topper Marks</span></div></div>
+<div class="kpi"><div class="ic" style="background:#f3e8ff">📚</div><div><b id="kAvg">-</b><span>Avg Marks</span></div></div>
+</div>
+
+<div class="action-grid">
+<a class="action-card" href="/add-student"><div class="ic">➕</div><b>Add Student</b><p>New student in 30 sec</p></a>
+<a class="action-card" href="/students-page"><div class="ic">👥</div><b>All Students</b><p>Search & view profiles</p></a>
+<a class="action-card" href="/add-project"><div class="ic">📦</div><b>Upload Project</b><p>Showcase your work</p></a>
+<a class="action-card" href="/projects-page"><div class="ic">📂</div><b>All Projects</b><p>Explore portfolio</p></a>
+<a class="action-card" href="/analytics"><div class="ic">📊</div><b>Analytics</b><p>Charts & insights</p></a>
+<a class="action-card" href="/profile"><div class="ic">👤</div><b>My Profile</b><p>Score & Resume</p></a>
+</div>
+
+<div style="max-width:1080px;margin:16px auto;padding:0 20px;position:relative;z-index:2"><div style="background:#0f172a;color:white;border-radius:16px;padding:20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><div><h3 style="color:white;margin:0;text-align:left">🏆 Topper Spotlight</h3><p style="color:#cbd5e1;font-size:13.5px;margin:4px 0 0" id="topperText">Loading...</p></div><a href="/students-page" style="background:white;color:#0f172a;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px">View All →</a></div></div>
+<p style="text-align:center;color:#94a3b8;font-size:12.5px;margin:14px 0 20px">StudentHub • © 2026</p>
+
+<script>
+if(localStorage.getItem('dark')==='1') document.body.classList.add('dark');
+function toggleDark(){ document.body.classList.toggle('dark'); let d=document.body.classList.contains('dark'); localStorage.setItem('dark',d?'1':'0'); document.getElementById('darkBtn').innerText=d?'☀️ Light':'🌙 Dark'; }
+setTimeout(()=>{ let b=document.getElementById('darkBtn'); if(b) b.innerText=document.body.classList.contains('dark')?'☀️ Light':'🌙 Dark'; },100);
+let role=localStorage.getItem('role'); let uname=localStorage.getItem('username');
+if(role){ document.getElementById('userInfo').innerText='👤 '+role+' • '+uname; document.getElementById('loginBtn').style.display='none'; document.getElementById('signupBtn').style.display='none'; document.getElementById('logoutBtn').style.display='inline-block'; document.getElementById('welcomeTitle').innerText='Welcome back, '+uname+' 👋'; document.getElementById('welcomeSub').innerText=role==='ADMIN'?'Admin Dashboard — Manage all students & projects.':'Your Dashboard — Add project, check score & profile.'; }
+function logout(){ localStorage.clear(); location.href='/login'; }
+function goSearch(){ let q=document.getElementById('search').value; if(q.trim()) location.href='/students-page?q='+encodeURIComponent(q); else location.href='/students-page'; }
+async function load(){ try{ let d=await (await fetch('/api/analytics')).json(); document.getElementById('kTotal').innerText=d.total||0; document.getElementById('kProj').innerText=d.totalProjects||0; document.getElementById('kTop').innerText=d.topMarks||'-'; document.getElementById('kAvg').innerText=d.avgMarks||0; document.getElementById('topperText').innerHTML=d.topperName&&d.topperName!=='None'?'<b style="color:white">'+d.topperName+'</b> • '+d.topMarks+' marks • Top scorer':'No students yet. Be the first topper →'; }catch(e){ document.getElementById('kTotal').innerText='0'; document.getElementById('kProj').innerText='0'; document.getElementById('topperText').innerText='Add first student to see topper'; } }
+load();
+</script></body></html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Analytics - StudentHub</title><link rel="stylesheet" href="style.css"><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{background:#eef2ff !important;position:relative;overflow-x:hidden}
+.bg-anim{position:fixed;inset:0;z-index:-1;overflow:hidden;background:linear-gradient(135deg,#fdf4ff 0%,#e0e7ff 25%,#ddd6fe 50%,#dbeafe 75%,#dcfce7 100%);background-size:300% 300%;animation:gradMove 12s ease infinite}
+@keyframes gradMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:float 8s ease-in-out infinite}
+.blob1{width:340px;height:340px;background:#c084fc;top:-80px;left:-80px}
+.blob2{width:300px;height:300px;background:#60a5fa;top:15%;right:-100px;animation-delay:2s}
+.blob3{width:280px;height:280px;background:#34d399;bottom:-80px;left:35%;animation-delay:4s}
+@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-28px) scale(1.07)}}
+.float-icon{position:absolute;font-size:26px;opacity:.5;animation:floatY 5s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-16px) rotate(8deg)}}
+.hero2{max-width:1080px;margin:22px auto 0;padding:0 20px;text-align:center;position:relative;z-index:2}
+.hero2 .pill{display:inline-block;background:white;border:1px solid #e2e8f0;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;color:#7c3aed;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.hero2 h1{font-size:30px;margin:10px 0 4px}
+.hero2 p{color:#64748b;font-size:14px}
+.kpi-grid{max-width:1080px;margin:20px auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;padding:0 20px;position:relative;z-index:2}
+.kpi{background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.7);border-radius:16px;padding:18px;box-shadow:0 8px 25px rgba(124,58,237,.1);display:flex;gap:14px;align-items:center;animation:cardIn .5s ease both;transition:.2s}
+.kpi:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(124,58,237,.15)}
+.kpi:nth-child(1){animation-delay:.05s}.kpi:nth-child(2){animation-delay:.1s}.kpi:nth-child(3){animation-delay:.15s}.kpi:nth-child(4){animation-delay:.2s}
+.kpi .icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.kpi b{font-size:24px;display:block;line-height:1}
+.kpi span{font-size:11.5px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.kpi small{font-size:12px;font-weight:600}
+.chart-grid{max-width:1080px;margin:16px auto;display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:0 20px;position:relative;z-index:2}
+@media(max-width:760px){.chart-grid{grid-template-columns:1fr}}
+.chart-card{background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.7);border-radius:16px;padding:20px;box-shadow:0 8px 25px rgba(124,58,237,.08);animation:cardIn .5s ease both;min-height:260px}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.chart-card h3{font-size:15px;text-align:left;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.chart-card h3 span{font-size:11px;background:#f5f3ff;color:#7c3aed;padding:4px 10px;border-radius:20px}
+.topper-banner{max-width:1080px;margin:16px auto 0;padding:20px 22px;border-radius:16px;background:#0f172a;color:white;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;position:relative;z-index:2}
+.topper-banner h3{color:white;margin:0;font-size:16px;text-align:left}
+.topper-banner p{color:#cbd5e1;font-size:13.5px;margin:4px 0 0}
+.empty-chart{text-align:center;padding:30px 10px;color:#94a3b8}
+.empty-chart .big{font-size:38px}
+body.dark{background:#0b1120 !important}
+body.dark .bg-anim{background:linear-gradient(135deg,#0f172a,#4c1d95,#312e81,#064e3b) !important}
+body.dark .kpi,body.dark .chart-card{background:rgba(17,28,50,.85) !important;border-color:#1e293b !important}
+body.dark .hero2 .pill{background:#1e293b !important;border-color:#334155 !important}
+body.dark .topper-banner{background:#1e293b !important}
+</style>
+</head><body>
+<div class="bg-anim"><div class="blob blob1"></div><div class="blob blob2"></div><div class="blob blob3"></div></div>
+<div class="float-icon" style="top:110px;left:5%">📊</div><div class="float-icon" style="top:160px;right:6%;animation-delay:1s">🏆</div><div class="float-icon" style="top:400px;left:3%;animation-delay:2s">📈</div>
+
+<div class="nav"><div class="logo"><span>S</span> StudentHub</div><button class="back-btn" onclick="history.back()">← Back</button><a href="/">Home</a><a href="/add-student">Add Student</a><a href="/students-page">All Students</a><a href="/add-project">Upload Project</a><a href="/projects-page">All Projects</a><a class="active" href="/analytics">Analytics</a><a href="/profile">My Profile</a><button class="dark-btn" onclick="toggleDark()" id="darkBtn">🌙 Dark</button><span id="userInfo" style="margin-left:auto"></span><a href="/signup" id="signupBtn">Sign up</a><a href="/login" id="loginBtn">Log in</a><button id="logoutBtn" onclick="logout()" style="display:none">Log out</button></div>
+
+<div class="hero2"><span class="pill">● Live Insights</span><h1>📊 Analytics Dashboard</h1><p>Real-time insights from your StudentHub data</p></div>
+
+<div class="kpi-grid">
+<div class="kpi"><div class="icon" style="background:#eef2ff">👥</div><div><b id="kTotal">-</b><span>Total Students</span><br><small id="kTotalSub" style="color:#16a34a">● Active</small></div></div>
+<div class="kpi"><div class="icon" style="background:#fef9c3">📚</div><div><b id="kAvg">-</b><span>Average Marks</span><br><small id="kAvgSub" style="color:#64748b">Out of 100</small></div></div>
+<div class="kpi"><div class="icon" style="background:#fef3c7">🏆</div><div><b id="kTop">-</b><span>Topper Marks</span><br><small id="kTopName" style="color:#ca8a04">—</small></div></div>
+<div class="kpi"><div class="icon" style="background:#dcfce7">📦</div><div><b id="kProj">-</b><span>Total Projects</span><br><small id="kProjSub" style="color:#16a34a">● Uploaded</small></div></div>
+</div>
+
+<div class="topper-banner" id="topperBanner"><div><h3>🏆 Topper Spotlight</h3><p id="topperText">Loading topper...</p></div><a href="/students-page" style="background:white;color:#0f172a;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px">View All Students →</a></div>
+
+<div class="chart-grid">
+<div class="chart-card"><h3>🏆 Top 5 Students by Marks <span>Bar Chart</span></h3><canvas id="chartTop" height="200"></canvas><p id="emptyTop" class="empty-chart" style="display:none"><span class="big">🎓</span><br>No students yet.<br><a href="/add-student" style="color:#7c3aed;font-weight:700">Add first student →</a></p></div>
+<div class="chart-card"><h3>🎓 Students by Course <span>Doughnut</span></h3><canvas id="chartCourse" height="200"></canvas><p id="emptyCourse" class="empty-chart" style="display:none"><span class="big">📚</span><br>No course data yet.</p></div>
+<div class="chart-card"><h3>📦 Projects by Type <span>Polar</span></h3><canvas id="chartProj" height="200"></canvas><p id="emptyProj" class="empty-chart" style="display:none"><span class="big">📦</span><br>No projects yet.<br><a href="/add-project" style="color:#7c3aed;font-weight:700">Upload first project →</a></p></div>
+<div class="chart-card"><h3>📈 Marks Distribution <span>Insight</span></h3><div id="distBox" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px"></div><p id="emptyDist" class="empty-chart" style="display:none"><span class="big">📈</span><br>Add students to see distribution.</p></div>
+</div>
+<p style="text-align:center;color:#94a3b8;font-size:12.5px;margin:14px 0 20px">StudentHub Analytics • Updates in real-time • © 2026</p>
+
+<script>
+if(localStorage.getItem('dark')==='1') document.body.classList.add('dark');
+function toggleDark(){ document.body.classList.toggle('dark'); let isDark=document.body.classList.contains('dark'); localStorage.setItem('dark', isDark?'1':'0'); document.getElementById('darkBtn').innerText=isDark?'☀️ Light':'🌙 Dark'; }
+setTimeout(()=>{ let b=document.getElementById('darkBtn'); if(b) b.innerText=document.body.classList.contains('dark')?'☀️ Light':'🌙 Dark'; },100);
+let role=localStorage.getItem('role'); let uname=localStorage.getItem('username');
+if(role){ document.getElementById('userInfo').innerText='👤 '+role+' • '+uname; document.getElementById('loginBtn').style.display='none'; document.getElementById('signupBtn').style.display='none'; document.getElementById('logoutBtn').style.display='inline-block'; }
+function logout(){ localStorage.clear(); location.reload(); }
+let charts=[];
+async function load(){
+  let d=await (await fetch('/api/analytics')).json();
+  document.getElementById('kTotal').innerText=d.total||0;
+  document.getElementById('kAvg').innerText=d.avgMarks||0;
+  document.getElementById('kTop').innerText=d.topMarks||'-';
+  document.getElementById('kTopName').innerText=d.topper&&d.topper!=='None'?d.topper:'No topper yet';
+  document.getElementById('kProj').innerText=d.totalProjects||0;
+  document.getElementById('topperText').innerHTML=d.topper==='None'||!d.topper?'No students yet. <a href="/add-student" style="color:white;text-decoration:underline">Be the first topper →</a>':'<b style="color:white">'+d.topper+'</b> • '+d.topMarks+' marks • Top scorer this semester';
+  // Top 5
+  if(!d.top5 || d.top5.length===0){ document.getElementById('chartTop').style.display='none'; document.getElementById('emptyTop').style.display='block'; }
+  else { let ctx=document.getElementById('chartTop').getContext('2d'); charts.push(new Chart(ctx,{type:'bar',data:{labels:d.top5.map(x=>x.name),datasets:[{label:'Marks',data:d.top5.map(x=>x.marks),backgroundColor:['#4f46e5','#7c3aed','#ec4899','#f59e0b','#16a34a'],borderRadius:8}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100}}}})); }
+  // Course
+  if(!d.byCourse || Object.keys(d.byCourse).length===0){ document.getElementById('chartCourse').style.display='none'; document.getElementById('emptyCourse').style.display='block'; }
+  else { let ctx2=document.getElementById('chartCourse').getContext('2d'); charts.push(new Chart(ctx2,{type:'doughnut',data:{labels:Object.keys(d.byCourse),datasets:[{data:Object.values(d.byCourse),backgroundColor:['#4f46e5','#ec4899','#f59e0b','#16a34a','#06b6d4','#8b5cf6'],borderWidth:3,borderColor:'#fff'}]},options:{responsive:true,plugins:{legend:{position:'bottom'}}}})); }
+  // Projects by type
+  if(!d.projectsByType || Object.keys(d.projectsByType).length===0){ document.getElementById('chartProj').style.display='none'; document.getElementById('emptyProj').style.display='block'; }
+  else { let ctx3=document.getElementById('chartProj').getContext('2d'); charts.push(new Chart(ctx3,{type:'polarArea',data:{labels:Object.keys(d.projectsByType),datasets:[{data:Object.values(d.projectsByType),backgroundColor:['#4f46e5','#ec4899','#f59e0b','#16a34a','#06b6d4']}]},options:{responsive:true,plugins:{legend:{position:'bottom'}}}})); }
+  // Distribution
+  if(d.distribution){ let box=document.getElementById('distBox'); let colors={'90+':'#16a34a','75-89':'#4f46e5','60-74':'#f59e0b','Below 60':'#ef4444'}; box.innerHTML=Object.entries(d.distribution).map(([k,v])=>`<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px;text-align:center"><b style="font-size:20px;color:${colors[k]||'#0f172a'}">${v}</b><br><span style="font-size:12px;color:#64748b;font-weight:600">${k} Marks</span></div>`).join(''); } else { document.getElementById('emptyDist').style.display='block'; }
+}
+load();
+</script></body></html>
